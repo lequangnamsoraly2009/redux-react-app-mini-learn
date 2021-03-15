@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FormGroup, Label, Input } from "reactstrap";
+import { FormGroup, Label, Input, FormFeedback} from "reactstrap";
+import { ErrorMessage } from "formik";
 
 InputField.propTypes = {
   // Nó bao gồm 2 giá trị mặc đinh cần có là field và form
@@ -22,10 +23,12 @@ InputField.defaultProps = {
 };
 
 function InputField(props) {
-  const { field, type, label, placeholder, disabled } = props;
+  const { field,form, type, label, placeholder, disabled } = props;
   // field props của fastfield luôn có 4 thuộc tính (props) mặc định là name, value, onChange và onBlur
   const { name } = field;
-
+  // Khởi tạo lỗi nếu errors và touched ở form,
+  const {errors,touched} = form;
+  const showError = errors[name] && touched[name]; 
   return (
     <FormGroup>
       {label && <Label for={name}>{label}</Label>}
@@ -37,7 +40,14 @@ function InputField(props) {
         type={type}
         disabled={disabled}
         placeholder={placeholder}
+        // FormFeedback cần isInvalid khi nó true. Input có support cho invalid
+        invalid = {showError}
       />
+      {/* Có 3 cách để show errors */}
+      {/* {showError && <p>{errors[name]}</p>} */}
+      {/* {showError && <FormFeedback>{errors[name]}</FormFeedback>} */}
+     
+      <ErrorMessage name={name} component={FormFeedback} />
     </FormGroup>
   );
 }

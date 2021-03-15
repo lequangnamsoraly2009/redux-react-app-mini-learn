@@ -7,6 +7,7 @@ import InputField from "custom-fields/InputField";
 import SelectField from "custom-fields/SelectField";
 import { PHOTO_CATEGORY_OPTIONS } from "constants/globals";
 import RandomPhotoField from "custom-fields/RandomPhotoField";
+import * as Yup from  'yup';
 
 PhotoForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -21,10 +22,32 @@ function PhotoForm(props) {
   const initialValues = {
     title: "",
     categoryId: null,
-    // photo: "",
+    photo: "",
   };
+
+  // Define schema yup dùng để validate object values khi submit của form : Yea Yeah :v
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required('This field is required'),
+    // categoryId khai báo là null nên Yup không hiểu nó có định dạng là gì nên cần add thêm func nullable để yup hiểu nó là number được định nghĩa
+    categoryId: Yup.number().required('This field is required').nullable(),
+    // Khi ta muốn thằng categoryId được chọn là trường Technology thì thằng Photo mới cần required còn các trường khác thì có thể không cần photo
+    // Hướng giải quyết:
+    // Khi thằng categoryId có (is: 1) giá trị là 1 thì (then) cần required thằng photo , còn nếu không (otherwise) thì không cần required
+    // Amazing goodjob Yup :v
+    photo: Yup.string().when('categoryId',{
+      is: 1,
+      then: Yup.string().required('This field is required'),
+      otherwise: Yup.string().notRequired(),
+    })
+  });
+
+
   return (
-    <Formik initialValues={initialValues}>
+    <Formik
+      initialValues={initialValues}
+      validationSchema = {validationSchema}
+      onSubmit={values => console.log('SUbmit:', values)}  
+    >
       {(formikProps) => {
         // Xử lý các props của form tại đây:
         const { values, errors, touched } = formikProps;
