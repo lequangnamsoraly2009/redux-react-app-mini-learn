@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { Label, Button, FormGroup } from "reactstrap";
-import Images from "constants/images";
+import { Button, FormGroup } from "reactstrap";
+// import Images from "constants/images";
 import { Formik, Form, FastField } from "formik";
 import InputField from "custom-fields/InputField";
 import SelectField from "custom-fields/SelectField";
-import { PHOTO_CATEGORY_OPTIONS } from 'constants/globals';
+import { PHOTO_CATEGORY_OPTIONS } from "constants/globals";
+import RandomPhotoField from "custom-fields/RandomPhotoField";
 
 PhotoForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -20,6 +21,7 @@ function PhotoForm(props) {
   const initialValues = {
     title: "",
     categoryId: null,
+    // photo: "",
   };
   return (
     <Formik initialValues={initialValues}>
@@ -48,27 +50,14 @@ function PhotoForm(props) {
               // Props được truyền vào InputField
               label="Category"
               placeholder="What's your photo category"
-              options= {PHOTO_CATEGORY_OPTIONS}
+              options={PHOTO_CATEGORY_OPTIONS}
             />
 
-
-            <FormGroup>
-              <Label for="categoryId">Photo</Label>
-
-              <div>
-                <Button type="button" outline color="primary">
-                  Random a photo
-                </Button>
-              </div>
-              <div>
-                <img
-                  width="200px"
-                  height="200px"
-                  src={Images.COLORFUL_BG}
-                  alt="Colorful"
-                />
-              </div>
-            </FormGroup>
+            <FastField
+              name="photo"
+              component={RandomPhotoField}
+              label="Photo"
+            />
 
             <FormGroup>
               <Button color="primary">Add to album</Button>
