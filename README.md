@@ -94,3 +94,19 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
     + Đặt schemaValidate trong phần Formik 
     + Khi có errors hoặc Touched vào Form thì show lỗi của từng trường Form 
     
+## Auth
+- Authentication: Who are you ?
+    + Validate a system is accessing by the right person
+    + Username + Password
+    + OTP
+    + Facebook sign-in
+    + Google sing-in 
+    +....
+    + Sau khi xác thực authentication thì server sẽ cho 1 token JWT
+- Authorization: Are you allowed to do that ?
+    + Check user's permissions to access data.
+    + JWT 
+=> Authentication -> Authorization
+
+<!-- English  -->
+- principle: nguyên tắc

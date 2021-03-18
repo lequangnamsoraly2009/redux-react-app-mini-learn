@@ -1,7 +1,7 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { Col, Container, Row } from 'reactstrap';
-import './Header.scss';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { Col, Container, Row } from "reactstrap";
+import "./Header.scss";
 
 Header.propTypes = {};
 
@@ -17,7 +17,7 @@ function Header() {
               // target="_blank" -> mở tab mới
               // rel="noopener noreferrer"
             >
-              Easy Frontend
+              MMM
             </a>
           </Col>
 
@@ -25,7 +25,7 @@ function Header() {
             <NavLink
               exact
               className="header__link"
-              to="/photos"
+              to="/sign-in"
               activeClassName="header__link--active"
             >
               Sign In
